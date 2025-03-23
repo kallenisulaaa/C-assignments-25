@@ -5,17 +5,27 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_NAME_LENGTH 50
+#define MAX_SUBJECT_NAME_LENGTH 50
+#define REPORT_FILENAME "Student_report.txt"
+
+#define GRADE_5 90
+#define GRADE_4 80
+#define GRADE_3 70
+#define GRADE_2 60
+#define GRADE_1 50
+
 int calculateGrade(float score) {
-  if (score >= 90) return 5;
-  else if (score >= 80) return 4;
-  else if (score >= 70) return 3;
-  else if (score >= 60) return 2;
-  else if (score >= 50) return 1;
+  if (score >= GRADE_5) return 5;
+  else if (score >= GRADE_4) return 4;
+  else if (score >= GRADE_3) return 3;
+  else if (score >= GRADE_2) return 2;
+  else if (score >= GRADE_1) return 1;
   else return 0;
 }
 
 int main() {
-  char studentname[50];
+  char studentname[MAX_NAME_LENGTH];
   int numsubjects;
 
   printf("Student grade calculator\n");
@@ -27,7 +37,7 @@ int main() {
   printf("How many subjects do you want to calculate grades for? ");
   scanf("%d", &numsubjects);
 
-  char subjects[numsubjects][50];
+  char subjects[numsubjects][MAX_SUBJECT_NAME_LENGTH];
   float scores[numsubjects];
   int grades[numsubjects];
   float totalscore = 0.0;
@@ -60,7 +70,7 @@ int main() {
   printf("Average grade: %.2f\n", averagegrade);
   printf("------------------------------------------------------\n");
 
-  FILE *file = fopen("Student_report.txt", "w");
+  FILE *file = fopen(REPORT_FILENAME, "w");
   if (file == NULL) {
     printf("Could not write to file.\n");
   } else {
@@ -77,7 +87,7 @@ int main() {
     fprintf(file, "Average grade: %.2f\n", averagegrade);
     fprintf(file, "------------------------------------------------------\n");
     fclose(file);
-    printf("The report has been saved to Student_report.txt\n");
+    printf("The report has been saved to %s\n", REPORT_FILENAME);
   }
   return 0;
 }
